@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyAnime</string>
+    <string name="myanime">MyAnime</string>
+    <string name="episodes">%1$d Episodes</string>
+    <string name="ranked">RANKED #%1$d</string>
+    <string name="episodes_no">Episodes: %1$s</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="no_synopsis_available">No synopsis available.</string>
+    <string name="n_a">N/A</string>
+</resources>
