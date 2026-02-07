@@ -1,3 +1,5 @@
+# Android Studio
+
 # Built application files
 *.apk
 *.aab
@@ -10,7 +12,6 @@
 
 # Generated files
 build/
-*/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -28,47 +29,21 @@ proguard/
 captures/
 
 # IntelliJ
+.idea/
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries/
-.idea/libraries/
-.idea/caches/
+
+# Gradle
+.gradle/
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
 
 # Keystore files
 *.jks
 *.keystore
 
-# External native build folder created in Android Studio 2.2 and later
-.externalNativeBuild/
+# Outputs from the Generate Signed APK wizard
+*.ap_
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
-
-# Signed APKs
-*.apk.idsig
-
-# Editor-based settings
-.idea/
-.vscode/
-
-# Gradle
-.gradle/
-**/build/
-!build/kotlin/
-!build/classes/kotlin/
-
-# Explicitly include the wrapper so that the project can be built without installing gradle.
-!gradle/wrapper/gradle-wrapper.jar
-!**/gradle/wrapper/gradle-wrapper.properties
-
-# Cache files
-*.lock
-.DS_Store
-
-# Misc
-/captures/
-.cxx/
-*.hprof
+# Crashlytics plugin
+com_crashlytics_export_strings.xml

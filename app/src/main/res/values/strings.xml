@@ -7,4 +7,5 @@
     <string name="synopsis">Synopsis</string>
     <string name="no_synopsis_available">No synopsis available.</string>
     <string name="n_a">N/A</string>
+    <string name="no_internet_no_data">You are offline and we couldn\'t load any data. Please check your internet connection and try again.</string>
 </resources>

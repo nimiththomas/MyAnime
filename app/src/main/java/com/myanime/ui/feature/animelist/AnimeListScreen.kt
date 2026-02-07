@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -86,20 +88,36 @@ fun AnimeListScreen(
                             }
                         }
                     }
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        items(animePagingItems.itemCount) { index ->
-                            animePagingItems[index]?.let {
-                                AnimeCard(
-                                    anime = it,
-                                    onClick = { onAnimeClick(it.id) },
-                                )
-                            }
+
+                    if (animePagingItems.itemCount == 0) {
+                        Box(Modifier.fillMaxSize()) {
+                            Text(
+                                text = stringResource(id = R.string.no_internet_no_data),
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                                    .padding(18.dp)
+                                    .fillMaxWidth(),
+                                color = TextColor,
+                                textAlign = TextAlign.Center
+                            )
                         }
 
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            items(animePagingItems.itemCount) { index ->
+                                animePagingItems[index]?.let {
+                                    AnimeCard(
+                                        anime = it,
+                                        onClick = { onAnimeClick(it.id) },
+                                    )
+                                }
+                            }
+
+                        }
                     }
                 }
 
