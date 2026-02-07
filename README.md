@@ -2,7 +2,7 @@
 
 This is an Android application for browsing and discovering new anime.
 
-myanine apk file is provided in apks folder if you wish to try the app
+myanime apk file is provided in apks folder if you wish to try the app
 
 ## Architecture
 
