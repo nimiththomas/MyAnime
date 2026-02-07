@@ -2,6 +2,8 @@
 
 This is an Android application for browsing and discovering new anime.
 
+myanine apk file is provided in apks folder if you wish to try the app
+
 ## Architecture
 
 This project follows the MVVM (Model-View-ViewModel) architecture pattern and makes use of modern Android development libraries and practices.
