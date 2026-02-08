@@ -27,7 +27,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -54,16 +53,11 @@ import com.myanime.ui.theme.WhiteColor
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun AnimeDetailScreen(
-    animeId: Int,
     viewModel: AnimeDetailViewModel = hiltViewModel(),
     onBack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
-
-    LaunchedEffect(animeId) {
-        viewModel.fetchAnimeDetails(animeId)
-    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

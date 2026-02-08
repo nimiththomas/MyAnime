@@ -6,7 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import com.myanime.ui.feature.animedetail.AnimeDetailScreen
 import com.myanime.ui.feature.animelist.AnimeListScreen
 
@@ -31,10 +30,8 @@ fun MyAnimeNavHost(
                 },
             )
         }
-        composable<Screen.AnimeDetail> { backStackEntry ->
-            val args = backStackEntry.toRoute<Screen.AnimeDetail>()
+        composable<Screen.AnimeDetail> {
             AnimeDetailScreen(
-                animeId = args.animeId,
                 onBack = {
                     navController.popBackStack()
                 }
