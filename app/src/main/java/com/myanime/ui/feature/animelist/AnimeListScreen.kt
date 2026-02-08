@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,6 +27,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.myanime.R
@@ -88,37 +88,36 @@ fun AnimeListScreen(
                             }
                         }
                     }
+                    when (animePagingItems.loadState.refresh) {
 
-                    if (animePagingItems.itemCount == 0) {
-                        Box(Modifier.fillMaxSize()) {
-                            Text(
-                                text = stringResource(id = R.string.no_internet_no_data),
-                                modifier = Modifier
-                                    .align(Alignment.Center)
-                                    .padding(18.dp)
-                                    .fillMaxWidth(),
-                                color = TextColor,
-                                textAlign = TextAlign.Center
-                            )
+                        is LoadState.Loading -> {
+                            FullScreenLoader()
                         }
 
-                    } else {
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
-                            verticalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            items(animePagingItems.itemCount) { index ->
-                                animePagingItems[index]?.let {
-                                    AnimeCard(
-                                        anime = it,
-                                        onClick = { onAnimeClick(it.id) },
+                        is LoadState.Error -> {
+                            if (animePagingItems.itemCount == 0) {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = stringResource(id = R.string.no_internet_no_data),
+                                        color = TextColor,
+                                        textAlign = TextAlign.Center,
+                                        modifier = Modifier.padding(18.dp)
                                     )
                                 }
+                            } else {
+                                // Show cached data if available
+                                AnimeList(animePagingItems, onAnimeClick)
                             }
+                        }
 
+                        is LoadState.NotLoading -> {
+                            AnimeList(animePagingItems, onAnimeClick)
                         }
                     }
+
                 }
 
                 is AnimeListUiState.Error -> {
@@ -127,6 +126,30 @@ fun AnimeListScreen(
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun AnimeList(
+    animePagingItems: LazyPagingItems<Anime>,
+    onAnimeClick: (Int) -> Unit
+) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(
+            vertical = 16.dp,
+            horizontal = 16.dp
+        ),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(animePagingItems.itemCount) { index ->
+            animePagingItems[index]?.let {
+                AnimeCard(
+                    anime = it,
+                    onClick = { onAnimeClick(it.id) }
+                )
             }
         }
     }
